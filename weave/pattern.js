@@ -3,6 +3,7 @@ const viewer = document.querySelector('#viewer');
 const container = document.querySelector('#pattern-container');
 const image = document.querySelector('#pattern');
 const marker = document.querySelector('#row-marker');
+const dimOverlay = document.querySelector('#dim-overlay');
 const setup = document.querySelector('#setup');
 const setupButton = document.querySelector('#setup-button');
 const controls = document.querySelector('#controls');
@@ -363,15 +364,20 @@ function update() {
     image.style.transform =
         `translateY(${row * rowHeight}px)`;
 
+    const markerTop =
+        viewer.clientHeight - rowHeight - extraBottom;
+
     marker.style.top =
-        `${viewer.clientHeight - rowHeight - extraBottom}px`;
+        `${markerTop}px`;
+
+    dimOverlay.style.top =
+        `${markerTop}px`;
 
     rowCounter.textContent =
         `Row ${row + 1}`;
 
     saveCurrentPosition();
 }
-
 
 function getMaximumRow() {
 

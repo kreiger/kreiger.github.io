@@ -54,6 +54,17 @@ body {
     z-index: 5;
 }
 
+#dim-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(255, 255, 255, 0.5);
+
+    pointer-events: none;
+    z-index: 4;
+}
 
 /*
  * Setup / pattern library
