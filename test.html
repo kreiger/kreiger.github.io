@@ -98,6 +98,7 @@
             z-index: 20;
 
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 8px;
 
@@ -122,9 +123,10 @@
             white-space: nowrap;
         }
 
-        #setup-button {
-            width: 34px;
-            height: 34px;
+        #controls button {
+            width: 40px;
+            height: 40px;
+            padding: 0;
 
             border: 0;
             border-radius: 50%;
@@ -133,7 +135,17 @@
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 
             cursor: pointer;
-            font-size: 17px;
+            font-size: 18px;
+            line-height: 40px;
+        }
+
+        #controls button:active {
+            transform: scale(0.95);
+        }
+
+        #start-button,
+        #end-button {
+            transform: rotate(90deg);
         }
     </style>
 </head>
@@ -151,8 +163,12 @@
     <div id="setup-content"><input type="file" id="file" accept="image/png,image/jpeg"></div>
 </div>
 <div id="controls">
-    <span id="row-counter">Row 1</span>
     <button id="setup-button" title="Choose another pattern">⚙</button>
+    <button id="end-button" title="Go to end">⏮</button>
+    <button id="forward-button" title="Next row">▲</button>
+    <span id="row-counter">Row 1</span>
+    <button id="back-button" title="Previous row">▼</button>
+    <button id="start-button" title="Go to start">⏭</button>
 </div>
 <script>
 
@@ -163,6 +179,10 @@
     const marker = document.querySelector('#row-marker');
     const setup = document.querySelector('#setup');
     const setupButton = document.querySelector('#setup-button');
+    const backButton = document.querySelector('#back-button');
+    const forwardButton = document.querySelector('#forward-button');
+    const startButton = document.querySelector('#start-button');
+    const endButton = document.querySelector('#end-button');
     const controls = document.querySelector('#controls');
     const rowCounter = document.querySelector('#row-counter');
     const SOURCE_ROW_HEIGHT = 20;
@@ -170,7 +190,6 @@
     const MAX_WIDTH = 900;
     let scale = 1;
     let row = 0;
-    let imageOffset = 0;
     file.addEventListener('change', () => {
         const selected = file.files[0];
         if (!selected) {
@@ -215,17 +234,23 @@
             `translateY(${row * rowHeight}px)`;
 
         marker.style.top =
-            `${viewer.clientHeight - rowHeight * 2 - extraBottom}px`;
+            `${viewer.clientHeight - rowHeight - extraBottom}px`;
 
         rowCounter.textContent = `Row ${row + 1}`;
     }
 
-    function advance() {
+    function getMaximumRow() {
         const rowHeight = SOURCE_ROW_HEIGHT * scale;
         const scaledHeight = image.naturalHeight * scale;
 
-        const maximumRows =
-            Math.floor((scaledHeight - rowHeight) / rowHeight);
+        return Math.max(
+            0,
+            Math.floor((scaledHeight - rowHeight) / rowHeight)
+        );
+    }
+
+    function advance() {
+        const maximumRows = getMaximumRow();
 
         if (row >= maximumRows) {
             return;
@@ -244,6 +269,16 @@
         update();
     }
 
+    function goToStart() {
+        row = 0;
+        update();
+    }
+
+    function goToEnd() {
+        row = getMaximumRow();
+        update();
+    }
+
     viewer.addEventListener('click', advance);
 
     document.addEventListener('keydown', event => {
@@ -258,10 +293,29 @@
         }
     });
 
-
     setupButton.addEventListener('click', event => {
         event.stopPropagation();
-        setup.classList.remove('hidden');
+        setup.classList.toggle('hidden');
+    });
+
+    backButton.addEventListener('click', event => {
+        event.stopPropagation();
+        goBack();
+    });
+
+    forwardButton.addEventListener('click', event => {
+        event.stopPropagation();
+        advance();
+    });
+
+    startButton.addEventListener('click', event => {
+        event.stopPropagation();
+        goToStart();
+    });
+
+    endButton.addEventListener('click', event => {
+        event.stopPropagation();
+        goToEnd();
     });
 
     window.addEventListener('resize', () => {
