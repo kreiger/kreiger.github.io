@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weaving Pattern</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="viewer">
+
+    <div id="pattern-container">
+        <img id="pattern" alt="Weaving pattern">
+    </div>
+
+    <div id="row-marker"></div>
+
+</div>
+
+<div id="setup">
+    <div id="setup-content">
+
+        <label id="file-button">
+            Choose pattern
+            <input
+                    type="file"
+                    id="file"
+                    accept="image/png,image/jpeg"
+            >
+        </label>
+
+        <div id="saved-patterns"></div>
+
+    </div>
+</div>
+
+<div id="controls">
+
+    <button id="setup-button" title="Choose another pattern">⚙</button>
+
+    <button id="end-button" title="Go to end">⏮</button>
+
+    <button id="forward-button" title="Next row">▲</button>
+
+    <span id="row-counter">Row 1</span>
+
+    <button id="back-button" title="Previous row">▼</button>
+
+    <button id="start-button" title="Go to start">⏭</button>
+
+</div>
+
+<script src="pattern.js"></script>
+
+</body>
+</html>
