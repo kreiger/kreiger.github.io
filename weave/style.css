@@ -225,12 +225,14 @@ body {
     pointer-events: auto;
 }
 
+#controls * {
+    background: rgba(224, 224, 224, 0.75);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+}
+
 #row-counter {
     padding: 5px 9px;
     border-radius: 12px;
-
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 
     font: 14px sans-serif;
     white-space: nowrap;
@@ -244,24 +246,21 @@ body {
     border: 0;
     border-radius: 50%;
 
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-
     cursor: pointer;
-    font-size: 18px;
+    font-size: 24px;
     line-height: 40px;
 }
 
-#controls button:active {
-    transform: scale(0.95);
-}
-
-#start-button,
-#end-button {
+#controls #start-button,
+#controls #end-button {
     transform: rotate(90deg);
 }
 
-#start-button:active,
-#end-button:active {
-    transform: rotate(90deg) scale(0.95);
+#controls #start-button:active,
+#controls #end-button:active {
+    transform: rotate(90deg) scale(0.90);
+}
+
+#controls button:active {
+    transform: scale(0.90);
 }
