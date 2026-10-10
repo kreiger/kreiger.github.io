@@ -23,7 +23,7 @@
     <div id="setup-content">
 
         <label id="file-button">
-            Choose pattern
+            Upload pattern image (PNG/JPEG)
             <input
                     type="file"
                     id="file"
@@ -36,19 +36,17 @@
 </div>
 
 <div id="controls">
+    <button id="setup-button"><img src="icons/gear.svg" alt="Setup"></button>
 
-    <button id="setup-button" title="Choose another pattern">⚙</button>
+    <button id="end-button" title="Go to end"><img src="icons/end.svg" alt=""></button>
 
-    <button id="end-button" title="Go to end">⏮</button>
+    <button id="forward-button" title="Next row"><img src="icons/forward.svg" alt=""></button>
 
-    <button id="forward-button" title="Next row">▲</button>
+    <div id="row-counter">Row 1</div>
 
-    <span id="row-counter">Row 1</span>
+    <button id="back-button" title="Previous row"><img src="icons/backward.svg" alt=""></button>
 
-    <button id="back-button" title="Previous row">▼</button>
-
-    <button id="start-button" title="Go to start">⏭</button>
-
+    <button id="start-button" title="Go to start"><img src="icons/start.svg" alt=""></button>
 </div>
 
 <script src="pattern.js"></script>
