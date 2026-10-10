@@ -291,6 +291,12 @@ file.addEventListener('change', async () => {
         return;
     }
 
+    if (!['image/png', 'image/jpeg'].includes(selected.type)) {
+        alert('Please choose a PNG or JPEG image.');
+        file.value = '';
+        return;
+    }
+
     const patterns = await getAllPatterns();
 
     const existing = patterns.find(pattern =>
