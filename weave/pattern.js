@@ -424,13 +424,12 @@ function getEndIndex() {
  */
 
 function advance() {
-    const maximumRows = getMaximumRow();
-
-    if (rowIndex > maximumRows) {
-        return;
+    if (rowIndex >= getEndIndex()) {
+        rowIndex = 0;
+    } else {
+        rowIndex++;
     }
 
-    rowIndex++;
     update();
 }
 
