@@ -226,8 +226,8 @@ body {
 }
 
 #controls * {
-    background: rgba(224, 224, 224, 0.75);
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    background: rgba(224, 224, 224, 90%);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 90%);
 }
 
 #row-counter {
