@@ -8,6 +8,7 @@ const setup = document.querySelector('#setup');
 const setupButton = document.querySelector('#setup-button');
 const controls = document.querySelector('#controls');
 const rowCounter = document.querySelector('#row-counter');
+const advanceHint = document.querySelector('#advance-hint');
 
 const savedPatterns = document.querySelector('#saved-patterns');
 
@@ -259,6 +260,7 @@ async function loadPattern(pattern) {
 
         setup.classList.add('hidden');
         controls.classList.add('visible');
+        advanceHint.classList.remove('hidden');
 
         URL.revokeObjectURL(url);
 
@@ -392,7 +394,7 @@ function update() {
     if (rowIndex >= getEndIndex()) {
         rowCounter.textContent = 'End';
     } else {
-        rowCounter.textContent = `Row ${rowIndex + 1}/${rowCount}`;
+        rowCounter.textContent = `${rowIndex + 1}/${rowCount}`;
     }
 
     saveCurrentPosition();
@@ -424,6 +426,8 @@ function getEndIndex() {
  */
 
 function advance() {
+    advanceHint.classList.add('hidden');
+
     if (rowIndex >= getEndIndex()) {
         rowIndex = 0;
     } else {
