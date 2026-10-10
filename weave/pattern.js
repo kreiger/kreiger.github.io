@@ -26,7 +26,8 @@ const MAX_WIDTH = 900;
  */
 
 let scale = 1;
-let row = 0;
+let rowIndex = 0;
+let rowCount = 0;
 
 let currentPatternId = null;
 let currentPatternName = null;
@@ -171,7 +172,10 @@ async function refreshPatternList() {
         const position = document.createElement('span');
 
         position.className = 'saved-pattern-row';
-        position.textContent = `Row ${pattern.row + 1}`;
+        const savedRowIndex = pattern.rowIndex ?? pattern.row ?? 0;
+        const savedRowCount = pattern.rowCount ?? 0;
+
+        position.textContent = `${Math.min(savedRowIndex, savedRowCount)}/${savedRowCount}`;
 
         selectButton.appendChild(name);
         selectButton.appendChild(position);
@@ -231,7 +235,8 @@ async function loadPattern(pattern) {
     currentPatternId = pattern.id;
     currentPatternName = pattern.name;
     currentImageBlob = pattern.image;
-    row = pattern.row || 0;
+    rowIndex = pattern.rowIndex ?? pattern.row ?? 0;
+    rowCount = pattern.rowCount ?? 0;
 
     const url = URL.createObjectURL(
         pattern.image
@@ -241,9 +246,11 @@ async function loadPattern(pattern) {
 
         configureImage();
 
-        row = Math.min(
-            row,
-            getMaximumRow()
+        rowCount = getEndIndex();
+
+        rowIndex = Math.min(
+            rowIndex,
+            rowCount
         );
 
         image.style.visibility = 'visible';
@@ -272,7 +279,8 @@ async function saveCurrentPosition() {
         id: currentPatternId,
         name: currentPatternName,
         image: currentImageBlob,
-        row: row
+        rowIndex: rowIndex,
+        rowCount: rowCount
     });
 
     refreshPatternList();
@@ -317,13 +325,15 @@ file.addEventListener('change', async () => {
         id: crypto.randomUUID(),
         name: selected.name,
         image: selected,
-        row: 0
+        rowIndex: 0,
+        rowCount: 0
     };
 
     currentPatternId = pattern.id;
     currentPatternName = pattern.name;
     currentImageBlob = pattern.image;
-    row = 0;
+    rowIndex = 0;
+    rowCount = 0;
 
     await savePattern(pattern);
     await loadPattern(pattern);
@@ -368,7 +378,7 @@ function update() {
         EXTRA_BOTTOM_PIXELS * scale;
 
     image.style.transform =
-        `translateY(${row * rowHeight}px)`;
+        `translateY(${rowIndex * rowHeight}px)`;
 
     const markerTop =
         viewer.clientHeight - rowHeight - extraBottom;
@@ -379,8 +389,11 @@ function update() {
     dimOverlay.style.top =
         `${markerTop}px`;
 
-    rowCounter.textContent =
-        `Row ${row + 1}`;
+    if (rowIndex >= getEndIndex()) {
+        rowCounter.textContent = 'End';
+    } else {
+        rowCounter.textContent = `Row ${rowIndex + 1}`;
+    }
 
     saveCurrentPosition();
 }
@@ -401,49 +414,48 @@ function getMaximumRow() {
     );
 }
 
+function getEndIndex() {
+    return getMaximumRow() + 1;
+}
+
 
 /*
  * Navigation
  */
 
 function advance() {
+    const maximumRows = getMaximumRow();
 
-    const maximumRows =
-        getMaximumRow();
-
-    if (row >= maximumRows) {
+    if (rowIndex > maximumRows) {
         return;
     }
 
-    row++;
+    rowIndex++;
     update();
 }
 
-
 function goBack() {
 
-    if (row === 0) {
+    if (rowIndex === 0) {
         return;
     }
 
-    row--;
+    rowIndex--;
     update();
 }
 
 
 function goToStart() {
 
-    row = 0;
+    rowIndex = 0;
     update();
 }
 
 
 function goToEnd() {
-
-    row = getMaximumRow();
+    rowIndex = getEndIndex();
     update();
 }
-
 
 /*
  * Viewer interaction
@@ -521,9 +533,9 @@ window.addEventListener('resize', () => {
 
     configureImage();
 
-    row = Math.min(
-        row,
-        getMaximumRow()
+    rowIndex = Math.min(
+        rowIndex,
+        getEndIndex()
     );
 
     update();
