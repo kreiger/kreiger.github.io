@@ -392,7 +392,7 @@ function update() {
     if (rowIndex >= getEndIndex()) {
         rowCounter.textContent = 'End';
     } else {
-        rowCounter.textContent = `Row ${rowIndex + 1}`;
+        rowCounter.textContent = `Row ${rowIndex + 1}/${rowCount}`;
     }
 
     saveCurrentPosition();
