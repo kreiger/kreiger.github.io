@@ -38,7 +38,7 @@ body {
 
     user-select: none;
     -webkit-user-drag: none;
-    transition: transform 180ms ease-out;
+    transition: transform 170ms ease-in-out;
 }
 
 #row-marker {
