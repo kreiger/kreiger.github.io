@@ -95,7 +95,7 @@ body {
 }
 
 #setup-content {
-    width: min(900px, 90%);
+    max-width: 80vw;
     margin-right: auto;
 }
 
