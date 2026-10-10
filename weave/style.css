@@ -65,6 +65,10 @@ body {
 
     pointer-events: none;
     z-index: 4;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /*
@@ -91,8 +95,8 @@ body {
 }
 
 #setup-content {
-    width: min(900px, 100%);
-    margin: auto;
+    width: min(900px, 90%);
+    margin-right: auto;
 }
 
 #file {
@@ -256,10 +260,9 @@ body {
 }
 
 #advance-hint {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: static;
+    transform: none;
+    margin: auto;
     z-index: 10;
 
     padding: 12px 18px;
