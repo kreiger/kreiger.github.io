@@ -468,17 +468,23 @@ function goToEnd() {
 
 viewer.addEventListener('click', advance);
 
+
 document.addEventListener('keydown', event => {
 
-    if (event.code === 'Space') {
+    if (event.code === 'Space' || event.code === 'ArrowUp') {
         event.preventDefault();
         advance();
-    }
-
-    if (event.code === 'Backspace') {
+    } else if (event.code === 'Backspace' || event.code === 'ArrowDown') {
         event.preventDefault();
         goBack();
+    } else if (event.key === 'Home') {
+        event.preventDefault();
+        goToStart();
+    } else if (event.key === 'End') {
+        event.preventDefault();
+        goToEnd();
     }
+
 });
 
 
