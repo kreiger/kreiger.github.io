@@ -11,6 +11,7 @@ const rowCounter = document.querySelector('#row-counter');
 const advanceHint = document.querySelector('#advance-hint');
 
 const savedPatterns = document.querySelector('#saved-patterns');
+const closeSetupButton = document.querySelector('#close-setup');
 
 const backButton = document.querySelector('#back-button');
 const forwardButton = document.querySelector('#forward-button');
@@ -440,10 +441,11 @@ function advance() {
 function goBack() {
 
     if (rowIndex === 0) {
-        return;
+        rowIndex = getEndIndex();
+    } else {
+        rowIndex--;
     }
 
-    rowIndex--;
     update();
 }
 
@@ -507,6 +509,9 @@ endButton.addEventListener('click', event => {
     goToEnd();
 });
 
+closeSetupButton.addEventListener('click', () => {
+    setup.classList.add('hidden');
+});
 
 /*
  * Setup button
