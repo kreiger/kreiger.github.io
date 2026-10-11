@@ -1,17 +1,14 @@
 const file = document.querySelector('#file');
+const app = document.querySelector('#app');
 const viewer = document.querySelector('#viewer');
 const container = document.querySelector('#pattern-container');
 const image = document.querySelector('#pattern');
 const marker = document.querySelector('#row-marker');
 const dimOverlay = document.querySelector('#dim-overlay');
-const setup = document.querySelector('#setup');
 const setupButton = document.querySelector('#setup-button');
-const controls = document.querySelector('#controls');
 const rowCounter = document.querySelector('#row-counter');
-const advanceHint = document.querySelector('#advance-hint');
 
 const savedPatterns = document.querySelector('#saved-patterns');
-const closeSetupButton = document.querySelector('#close-setup');
 
 const backButton = document.querySelector('#back-button');
 const forwardButton = document.querySelector('#forward-button');
@@ -218,10 +215,8 @@ async function refreshPatternList() {
                 currentPatternName = null;
                 currentImageBlob = null;
 
-                setup.classList.remove('hidden');
-                controls.classList.remove('visible');
+                app.classList.remove('image-loaded');
             }
-
             await refreshPatternList();
         });
 
@@ -255,13 +250,11 @@ async function loadPattern(pattern) {
             rowCount
         );
 
-        image.style.visibility = 'visible';
-
         update();
 
-        setup.classList.add('hidden');
-        controls.classList.add('visible');
-        advanceHint.classList.remove('hidden');
+        app.classList.add('image-loaded');
+        app.classList.remove('setup-visible');
+        app.classList.remove('advanced');
 
         URL.revokeObjectURL(url);
 
@@ -427,7 +420,7 @@ function getEndIndex() {
  */
 
 function advance() {
-    advanceHint.classList.add('hidden');
+    app.classList.add('advanced');
 
     if (rowIndex >= getEndIndex()) {
         rowIndex = 0;
@@ -515,21 +508,16 @@ endButton.addEventListener('click', event => {
     goToEnd();
 });
 
-closeSetupButton.addEventListener('click', () => {
-    setup.classList.add('hidden');
-});
-
 /*
  * Setup button
  */
 
 setupButton.addEventListener('click', event => {
-
     event.stopPropagation();
 
-    setup.classList.toggle('hidden');
+    const setupVisible = app.classList.toggle('setup-visible');
 
-    if (!setup.classList.contains('hidden')) {
+    if (setupVisible) {
         refreshPatternList();
     }
 });

@@ -9,12 +9,14 @@
 
 <body>
 
+<div id="app">
+
 <div id="viewer">
 
     <div id="pattern-container">
         <img id="pattern" alt="Weaving pattern">
         <div id="dim-overlay">
-            <div id="advance-hint" class="hidden">
+            <div id="advance-hint">
                 <span id="keyboard-hint">Press Space/Backspace to go forward/backward</span>
                 <span id="touch-hint">Touch to advance</span>
             </div>
@@ -22,41 +24,39 @@
     </div>
 
     <div id="row-marker"></div>
-
 </div>
 
 <div id="setup">
     <div id="setup-content">
-
         <label id="file-button">
             Upload pattern image
-            <input
-                    type="file"
-                    id="file"
-            >
+            <input type="file" id="file">
         </label>
         (PNG/JPEG with 20px interval)
-
         <div id="saved-patterns"></div>
-
-        <button id="close-setup" type="button" aria-label="Close setup">
-            <img src="icons/close.svg" alt="Close setup">
-        </button>
     </div>
 </div>
 
+<button id="setup-button" type="button" title="Setup">
+    <img src="icons/gear.svg" alt="Setup">
+</button>
+
 <div id="controls">
-    <button id="setup-button"><img src="icons/gear.svg" alt="Setup"></button>
-
-    <button id="end-button" title="Go to end"><img src="icons/end.svg" alt=""></button>
-
-    <button id="forward-button" title="Next row"><img src="icons/forward.svg" alt=""></button>
-
+    <button id="end-button" title="Go to end">
+        <img src="icons/end.svg" alt="">
+    </button>
+    <button id="forward-button" title="Next row">
+        <img src="icons/forward.svg" alt="">
+    </button>
     <div id="row-counter"></div>
+    <button id="back-button" title="Previous row">
+        <img src="icons/backward.svg" alt="">
+    </button>
+    <button id="start-button" title="Go to start">
+        <img src="icons/start.svg" alt="">
+    </button>
+</div>
 
-    <button id="back-button" title="Previous row"><img src="icons/backward.svg" alt=""></button>
-
-    <button id="start-button" title="Go to start"><img src="icons/start.svg" alt=""></button>
 </div>
 
 <script src="pattern.js"></script>
