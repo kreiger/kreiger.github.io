@@ -267,12 +267,12 @@ button:active {
     margin: auto;
     z-index: 10;
 
-    padding: 12px 18px;
+    padding: 8px 8px;
     border-radius: 8px;
 
     color: white;
     background: rgba(0, 0, 0, 0.75);
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
     white-space: nowrap;
 
